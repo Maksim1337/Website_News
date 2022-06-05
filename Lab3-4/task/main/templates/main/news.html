@@ -1,0 +1,18 @@
+{% extends 'main/base.html'%}
+
+
+{% block title %}
+  {{ title }}
+{% endblock %}
+
+
+{% block content %}
+<h1> Новости </h1>
+{% for n in news %}
+<div class="alert alert-warning mt-2">
+  <h3>{{ n.title }}</h3>
+    <p>{{ n.data }}</p>
+   <p>{{ n.time }}</p>
+</div>
+{% endfor %}
+{% endblock %}
