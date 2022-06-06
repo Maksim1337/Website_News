@@ -21,3 +21,7 @@ def contacts(request):
 
 def signin(request):
     return render(request, 'main/signin.html')
+
+
+def signup(request):
+    return render(request, 'main/signup.html')
