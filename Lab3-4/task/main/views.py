@@ -13,4 +13,4 @@ def about(request):
 
 def news(request):
     newsbuf = News.objects.order_by('-id')
-    return render(request, 'main/news.html', {'title': 'Главная', 'news': newsbuf})
+    return render(request, 'main/news.html', {'title': 'Новости', 'news': newsbuf})
