@@ -17,3 +17,7 @@ def news(request):
 
 def contacts(request):
     return render(request, 'main/contacts.html')
+
+
+def signin(request):
+    return render(request, 'main/signin.html')
