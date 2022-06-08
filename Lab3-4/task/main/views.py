@@ -1,27 +1,36 @@
 from django.shortcuts import render
 from .models import News
+from django.views.generic import ListView, DetailView, CreateView, TemplateView
+from django.contrib.auth.forms import UserCreationForm
 
 
-def index(request):
-    return render(request, 'main/index.html')
+class Index(TemplateView):
+    template_name = 'main/index.html'
 
 
-def about(request):
-    return render(request, 'main/about.html')
+class About(TemplateView):
+    template_name = 'main/about.html'
 
 
-def news(request):
-    newsbuf = News.objects.order_by('-id')
-    return render(request, 'main/news.html', {'title': 'Новости', 'news': newsbuf})
+class NewsCl(ListView):
+    model = News
+    template_name = 'main/news.html', {'title': 'Новости', 'news': model}
 
 
-def contacts(request):
-    return render(request, 'main/contacts.html')
+class Contacts(TemplateView):
+    template_name = 'main/contacts.html'
 
 
-def signin(request):
-    return render(request, 'main/signin.html')
+class Signin(TemplateView):
+    template_name = 'main/signin.html'
 
 
-def signup(request):
-    return render(request, 'main/signup.html')
+class Signup(TemplateView):
+    template_name = 'main/signup.html'
+
+
+class Register(CreateView):
+    form_class = UserCreationForm
+    template_name = 'main/signup'
+
+
