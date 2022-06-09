@@ -12,9 +12,9 @@ class About(TemplateView):
     template_name = 'main/about.html'
 
 
-class NewsCl(ListView):
-    model = News
-    template_name = 'main/news.html', {'title': 'Новости', 'news': model}
+def news(request):
+    news_buf = News.objects.order_by('-id')
+    return render(request, 'main/news.html', {'title': 'Новости', 'news': news_buf})
 
 
 class Contacts(TemplateView):
