@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse
 from .models import News
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 
 class Index(TemplateView):
@@ -25,12 +27,18 @@ class Signin(TemplateView):
     template_name = 'main/signin.html'
 
 
-class Signup(TemplateView):
-    template_name = 'main/signup.html'
+class RegisterView(TemplateView):
+    template_name = "main/signup.html"
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+            password2 = request.POST.get('password2')
 
-class Register(CreateView):
-    form_class = UserCreationForm
-    template_name = 'main/signup'
+            if password == password2:
+                User.objects.create_user(username, email, password)
+                return redirect(reverse('index'))
 
-
+        return render(request, self.template_name)
