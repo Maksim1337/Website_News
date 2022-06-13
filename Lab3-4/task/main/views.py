@@ -1,8 +1,8 @@
 from django.shortcuts import redirect, render
+from django.contrib.auth import authenticate, login
 from django.urls import reverse
 from .models import News
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
@@ -25,6 +25,23 @@ class Contacts(TemplateView):
 
 class Signin(TemplateView):
     template_name = 'main/signin.html'
+
+
+class LoginView(TemplateView):
+    template_name = "main/signin.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        context = {}
+        if request.method == 'POST':
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect("/")
+            else:
+                context['error'] = "Логин или пароль неправильные"
+        return render(request, self.template_name, context)
 
 
 class RegisterView(TemplateView):
