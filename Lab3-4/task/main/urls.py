@@ -10,4 +10,5 @@ urlpatterns = [
     path('contacts', Contacts.as_view()),
     path('signup', RegisterView.as_view()),
     path('signin', LoginView.as_view()),
+    path('create', views.create),
 ]

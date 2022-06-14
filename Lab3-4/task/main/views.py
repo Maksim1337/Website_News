@@ -4,6 +4,7 @@ from django.urls import reverse
 from .models import News
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.contrib.auth.models import User
+from .forms import NewsForm
 
 
 class Index(TemplateView):
@@ -17,6 +18,20 @@ class About(TemplateView):
 def news(request):
     news_buf = News.objects.order_by('-id')
     return render(request, 'main/news.html', {'title': 'Новости', 'news': news_buf})
+
+
+def create(request):
+    form = NewsForm()
+    if request.method == 'POST':
+        form.NewsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            
+    form = NewsForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'main/create.html', context)
 
 
 class Contacts(TemplateView):
