@@ -1,25 +1,19 @@
 from .models import News
-from django.forms import ModelForm, TextInput
+from django.forms import ModelForm, TextInput, Textarea
 
 
 class NewsForm(ModelForm):
     class Meta:
         model = News
-        fields = ["title", "data", "time"]
+        fields = ["title", "data"]
         widgets = {
             "title": TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Введите название'
             }),
-            "data": TextInput(attrs={
+            "data": Textarea(attrs={
                 'class': 'form-control',
                 'placeholder': 'Введите описание'
-
-            }),
-            "time": TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Введите время'
-
             })
         }
 

@@ -21,11 +21,12 @@ def news(request):
 
 
 def create(request):
-    form = NewsForm()
     if request.method == 'POST':
-        form.NewsForm(request.POST)
+        form = NewsForm(request.POST)
         if form.is_valid():
             form.save()
+        else:
+            return redirect('index')
             
     form = NewsForm()
     context = {
