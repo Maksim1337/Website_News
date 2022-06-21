@@ -1,8 +1,8 @@
 from django.shortcuts import redirect, render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from .models import News
-from django.views.generic import ListView, DetailView, CreateView, TemplateView
+from django.views.generic import TemplateView
 from django.contrib.auth.models import User
 from .forms import NewsForm
 
@@ -25,7 +25,6 @@ def create(request):
         form = NewsForm(request.POST)
         if form.is_valid():
             form.save()
-        else:
             return redirect('index')
             
     form = NewsForm()
@@ -75,3 +74,8 @@ class RegisterView(TemplateView):
                 return redirect(reverse('index'))
 
         return render(request, self.template_name)
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('index')
