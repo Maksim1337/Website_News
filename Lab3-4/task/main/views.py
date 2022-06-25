@@ -15,14 +15,14 @@ class About(TemplateView):
     template_name = 'main/about.html'
 
 
-def news(request):
+def read(request):
     news_buf = News.objects.order_by('-id')
     return render(request, 'main/news.html', {'title': 'Новости', 'news': news_buf})
 
 
 def create(request):
     if request.method == 'POST':
-        form = NewsForm(request.POST)
+        form = NewsForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('index')
